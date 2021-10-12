@@ -104,10 +104,8 @@ console.log("------------------------");
 	const pokeContainer = document.getElementById('poke-container');
 	const commentsContainer = document.getElementById('comments-container');
 	const commentsForm = document.getElementById('comments-form');
-  
-  	commentsForm.addEventListener("submit", createComment);
 	
-	function loadPokemons() {
+	const loadPokemons = () => {
 		fetch(BASE_URL + '/pokemons')
 		.then(resp => resp.json())
 		.then(pokemons => {
@@ -115,7 +113,7 @@ console.log("------------------------");
 		});
 	}
 
-	function loadComments() {
+	const loadComments = () => {
 		fetch(BASE_URL + '/comments')
 		.then(resp => resp.json())
 		.then(comments => {
@@ -123,56 +121,41 @@ console.log("------------------------");
 		});
 	}
 
-	function renderPokemon(pokemon) {
-		const pokeCard = document.createElement("div");
-		const pokeImg = document.createElement("img");
-		const pokeName = document.createElement("h3");
-		const pokeLikes = document.createElement("h3");
-		const likesNum = document.createElement("h5");
-		const likeBttn = document.createElement("button");
-		const deleteBttn = document.createElement("button");
+	const renderPokemon = ({id, name, img, likes}) => {
+		const pokeCard = createEl("div");
+		const pokeImg = createEl("img");
+		const pokeName = createEl("h3");
+		const pokeLikes = createEl("h3");
+		const likesNum = createEl("h5");
+		const likeBttn = createEl("button");
+		const deleteBttn = createEl("button");
 
-		pokeCard.id = `poke-${pokemon.id}`;
-		pokeCard.className = "poke-card";
-
-		pokeImg.src = pokemon.img;
-		pokeImg.alt = `${pokemon.name} image`;
-
-		pokeName.textContent = pokemon.name;
-		
+		[pokeCard.id, pokeCard.className] = [`poke-${id}`, 'poke-card'];
+		[pokeImg.src, pokeImg.alt] = [img, `${name} image`];
+		pokeName.textContent = name;
 		pokeLikes.textContent = "Likes: ";
-		
-		likesNum.className = "like-num";
-		likesNum.textContent = pokemon.likes;
-		
-		likeBttn.className = "like-bttn";
-		likeBttn.textContent = "♥";
-		likeBttn.addEventListener("click", () => increaseLike(pokemon.likes, likesNum));
+		[likesNum.className, likesNum.textContent] = ['likes-num', likes];
+		[likeBttn.className, likeBttn.textContent] = ['like-bttn', '♥'];
+		likeBttn.addEventListener("click", () => increaseLike(id, likesNum));
 
-		deleteBttn.className = "delete-bttn";
-		deleteBttn.textContent = "Delete";
-		deleteBttn.addEventListener("click", () => deletePoke(pokemon.id, pokeCard));
+		[deleteBttn.className, deleteBttn.textContent] = ['delete-bttn', 'Delete'];
+		deleteBttn.addEventListener("click", () => deletePoke(id, pokeCard));
 
 		pokeCard.append(pokeImg, pokeName, pokeLikes, likesNum, likeBttn, deleteBttn);
 		pokeContainer.appendChild(pokeCard);
 	}
 
-	function renderComment(comment) {
-		const commentCard = document.createElement("div");
-		const userName = document.createElement("h3");
-		const userContent = document.createElement("p");
-
-		commentCard.className = "comment-card";
-		
-		userName.textContent = comment.content;
-
-		userContent.textContent = `Added by ${comment.user}`;
+	const renderComment = ({content, user}) => {
+		const commentCard = createEl("div");
+		const userName = createEl("h3");
+		const userContent = createEl("p");
+		[commentCard.className, userName.textContent, userContent.textContent] = ['comment-card', content, `Added by ${user}`];
 
 		commentCard.append(userName, userContent);
 		commentsContainer.append(commentCard);
 	}
 
-	function createComment(e) {
+	const createComment = (e) => {
 		e.preventDefault();
 		
 		let commentUser = commentsForm.querySelector("#user").value;
@@ -200,25 +183,24 @@ console.log("------------------------");
 
 	// 	❗ PREVIOUS LECTURE (CRUS with Fetch: PATCH and DELETE Requests) ❗
 
-	function increaseLike(likes, likesNum) {
-		++likes;
-
-		fetch(BASE_URL + `/pokemons/${pokemon.id}`, {
+	const increaseLike = (id, likesNum) => {
+		const newLikes = +likesNum.textContent + 1
+		fetch(BASE_URL + `/pokemons/${id}`, {
 			method: 'PATCH',
 			headers: {
 				'Content-Type': 'application/json'
 			},
-			body: JSON.stringify(pokemon)
+			body: JSON.stringify({likes: newLikes})
 		})
 		.then(resp => resp.json())
 		.catch(error => console.error('Error:', error))
 		.then(updatedPokemon => { 
 			console.log(updatedPokemon);
-			likesNum.textContent = pokemon.likes;
+			likesNum.textContent = newLikes;
 		});
 	}
 
-	function deletePoke(id, pokeCard) {
+	const deletePoke = (id, pokeCard) => {
 		fetch(BASE_URL + `/pokemons/${id}`, {
 			method: 'DELETE',
 			headers: {
@@ -233,9 +215,12 @@ console.log("------------------------");
 		});
 	}
 
-	function init() {
+	const createEl = tag => document.createElement(tag);
+
+	const init = () => {
 		loadPokemons();
 		loadComments();
+		commentsForm.addEventListener("submit", createComment);
 	}
 
 	// load up all pokemons and comments

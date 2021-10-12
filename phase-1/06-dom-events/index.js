@@ -133,12 +133,14 @@ console.log("------------------------");
       likeBttn.textContent = "♥";
       
       // ❗ add likeBttn event listener ❗
+      likeBttn.addEventListener('click', () => addLike(pokemon, likesNum));
 
       // set deleteBtt attributes
       deleteBttn.className = "delete-bttn";
       deleteBttn.textContent = "Delete";
   
       // ❗ add deleteBttn event listener ❗
+      deleteBttn.addEventListener('click', () => deletePoke(pokeCard));
   
       // append DOM elements to pokeCard
       pokeCard.append(pokeImg, pokeName, pokeLikes, likesNum, likeBttn, deleteBttn);
@@ -149,18 +151,21 @@ console.log("------------------------");
 
     function addLike(pokemon, likesNum){
     //   // ❗ your code here
+      // pokemon.likes++;
+      likesNum.textContent = ++pokemon.likes;
     }
 
     function deletePoke(pokeCard){
     //   // ❗ your code here
+      pokeCard.remove();
     }
 
 	// ✅ Check Answer: 
-	function init() {
-		pokemons.forEach(renderPokemon);
-	}
+	// function init() {
+	// 	pokemons.forEach(renderPokemon);
+	// }
 
-	init();
+	// init();
 
 // 🚧 Break Out Activity 2: Handling Submit Events
 
@@ -187,14 +192,25 @@ console.log("------------------------");
 
 	// 	💡 Use Chrome Dev Tools to view changes being made to the DOM
   
-    // function createPokemon(){
-    //   // ❗ your code here
-    // }
+    function createPokemon(event){
+      // ❗ your code here
+      event.preventDefault();
+      const newPokemon = {};
+      newPokemon.name = event.target.querySelector('#name-input').value;
+      newPokemon.id = pokemons.slice(-1)[0].id + 1;
+      newPokemon.img = './images/whos_that_pokemon.png';
+      newPokemon.likes = 0;
+      pokemons.push(newPokemon);
+
+      renderPokemon(newPokemon);
+
+      event.target.reset();
+    }
 
   // ✅ Check Answer: 
-  // function init() {
-  //   pokemons.forEach(renderPokemon);
-  //   pokeForm.addEventListener('submit', createPokemon)
-  // }
+  function init() {
+    pokemons.forEach(renderPokemon);
+    pokeForm.addEventListener('submit', createPokemon)
+  }
   
-  // init()
+  init()

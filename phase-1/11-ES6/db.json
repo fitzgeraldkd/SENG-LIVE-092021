@@ -4,7 +4,7 @@
       "id": 1,
       "name": "Bulbasaur",
       "img": "./images/bulbasaur.png",
-      "likes": 0
+      "likes": 27
     },
     {
       "id": 2,
@@ -16,7 +16,7 @@
       "id": 3,
       "name": "Venusaur",
       "img": "./images/venusaur.png",
-      "likes": 0
+      "likes": 3
     }
   ],
   "comments": [

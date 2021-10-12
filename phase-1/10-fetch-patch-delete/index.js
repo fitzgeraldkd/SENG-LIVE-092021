@@ -243,7 +243,23 @@ console.log("------------------------");
 
 		function increaseLike(pokemon, likesElement) {
 			++pokemon.likes;
-			likesElement.textContent = pokemon.likes;
+			// likesElement.textContent = pokemon.likes;
+			const options = {
+				method: 'PATCH',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify(pokemon)
+			};
+			fetch(`${BASE_URL}/pokemons/${pokemon.id}`, options)
+				.then(resp => resp.json())
+				.catch(error => {
+					console.error(error);
+				})
+				.then(pokemon => {
+					console.log(pokemon);
+					likesElement.textContent = pokemon.likes;
+				});
 		}
 
 		// ✅ Check Answer in Browser / Console
@@ -267,7 +283,21 @@ console.log("------------------------");
 		// 	✨ BONUS: Include meaningful error catching / reporting using "console.error"
 
 		function deletePoke(pokemon, pokeCard) {
-			pokeCard.remove();
+			const options = {
+				method: 'DELETE',
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			};
+			fetch(`${BASE_URL}/pokemons/${pokemon.id}`, options)
+				.then(resp => resp.json())
+				.catch(error => {
+					console.error(error);
+				})
+				.then(results => {
+					console.log(results);
+					pokeCard.remove();
+				});
 		}
 
 		// ✅ Check Answer in Browser / Console

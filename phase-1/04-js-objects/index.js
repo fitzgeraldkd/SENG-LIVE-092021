@@ -1,3 +1,5 @@
+/*
+
 // ❗ Use console.log() To Check Answers
 
 // ✅ Creating & Accessing Objects
@@ -6,9 +8,22 @@
 
         // empty object (no key / value pairs)
 
+        let myObj1 = {};
+
         // object with single property (one key / value pair)
 
+        let myObj2 = {myKey: "myValue"};
+
         // object with multiple properties of different data types (multiple key / value pairs)
+
+        const episode = {
+            season: 4,
+            num: 5,
+            title: "The One with Joeys New Girlfriend",
+            air_date: "October 30, 1997",
+            run_time: "22 min",
+            printEpisode: function(){console.log(episode.title)}
+        };
 
     // accessing object properties
 
@@ -16,9 +31,19 @@
         
             // can use bracket notation for placeholders
 
+            function someFunction(myObject, myKey) {
+                return myObject[myKey];
+            }
+
+            console.log(someFunction(episode, "season"))
+
         // dot notation (better for readability)
         
     // convert object properties and values into an array
+
+            console.log(Object.keys(episode));
+            console.log(Object.values(episode));
+            console.log(Object.entries(episode));
 
 // ✅ Modifying Objects
 
@@ -26,16 +51,41 @@
 
         // adding a property
 
+        episode.newKey = "value";
+        console.log(episode);
+
         // changing a property value
             
+        episode.newKey = [1, 2, 3];
+        console.log(episode);
+
         // removing a property 
+
+        // delete episode.newKey
 
     // nondestructively
 
         // use the spread operator {...} to create a clone of the original object...
 
+        let newEpisode = {...episode};
+        newEpisode.newKey.splice(1, 1);
+        console.log(newEpisode);
+        console.log(episode);
+
         // ...that you can then modify without altering the original object
         
+let myOriginalObject = {
+    letters: ["a", "b", "c"]
+}
+
+let myShallowCopy = {...myOriginalObject};
+
+// directly & destructively mutating an array in the shallow copy affects the original
+myShallowCopy.letters.splice(0, 2);
+
+console.log(myOriginalObject);
+console.log(myShallowCopy);
+
 // ✅ Iterating Over Objects vs. Arrays
         
     // what is the main distinction between looping and iterating?
@@ -67,6 +117,8 @@
     // console.log("The secondPerson canCode: " + secondPerson.canCode);
     // console.log("The secondPerson can sayHello: " + secondPerson.sayHello()); 
 
+*/
+
 // -------------------------------------------
 
 console.log("------------------------");
@@ -86,9 +138,16 @@ console.log("------------------------");
 
         // ❗ volume => length * width * height
 
-            
+        function computeVolume(dimensions) {
+            return dimensions.length * dimensions.width * dimensions.height;
+        }
 
-
+        let object = { 
+            length: 3,
+            width: 5, 
+            height: 7 
+        };
+        console.log(computeVolume(object));
         
         // ✅ Check Answer: 
         // console.log(computeVolume(dimensions));
@@ -106,9 +165,12 @@ console.log("------------------------");
 
         // 💡 Consider using a combination of Object.keys and map() in your solution.
 
+        function convertToArray(myObject) {
+            return Object.entries(myObject);
+        }
 
-
-
+        console.log(convertToArray({ x: 1, y: 2, z: 3 }));
+        console.log(convertToArray({}));
 
         // ✅ Check Answer: 
         // console.log(convertToArray(myObject));
@@ -123,12 +185,24 @@ console.log("------------------------");
 
         // 💡 Try making use of a "for...in" loop to iterate over originalObject's keys.
 
+        function invertObject(normalObject) {
+            let invertedObject = {};
+            for (const key in normalObject) {
+                let value = normalObject[key];
+                invertedObject[value] = key;
+            }
+            return invertedObject;
+        }
 
-
+        let normalObject = {
+            x: 1,
+            y: 2, 
+            z: 3
+        };
 
 
         // ✅ Check Answer: 
-        // console.log(invertObject(normalObject));
+        console.log(invertObject(normalObject));
 
 // 🚧 Break Out Activity 3: Stretch Challenge
 
@@ -147,9 +221,16 @@ console.log("------------------------");
 
         // 💡 Consider using Object.keys(), map(), and / or sort() in your solution.
 
+        function findYoungest(groupOfPeople) {
 
+        }
 
-
+        let people = {
+            Jeremy: 65,
+            Alice: 32,
+            Bob: 18,
+            Megan: 29
+        }
 
         // ✅ Check Answer: 
-        // console.log(findYoungest(groupOfPeople));
+        console.log(findYoungest(people));

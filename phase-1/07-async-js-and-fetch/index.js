@@ -70,7 +70,7 @@
 // -------------------------------------------
 
 console.log("------------------------");
-console.log("⬇️ Break Out Activites ⬇️");
+console.log("⬇️ Break Out Activities ⬇️");
 console.log("🚨 Comment Out Lecture Code Above Before Starting 🚨");
 console.log("💡 Use console.log() To Check Answers 💡");
 console.log("------------------------");
@@ -119,7 +119,7 @@ console.log("------------------------");
         header.textContent = "No Breweries Found";
 
         div.append(icon, header);
-        container.appendChild(div);
+        brewList.appendChild(div);
     }
 
     // 1️⃣ Create a function (getAllBreweries) that:
@@ -131,7 +131,18 @@ console.log("------------------------");
         // 	✨ BONUS: Include error handling using .catch()
 
         function getAllBreweries(){
-            // ❗ your code here
+            fetch(BASE_URL)
+                .then(response => response.json())
+                .then(results => {
+                    if (results.length === 0) {
+                        returnNone();
+                    } else {
+                        results.forEach(renderBrew);
+                    }
+                })
+                .catch(error => {
+                    console.log(error);
+                });
         }
 
         // ✅ Check Answer: 
@@ -148,7 +159,18 @@ console.log("------------------------");
         // 	✨ BONUS: Include error handling using .catch()
 
         function getBreweriesByCity(city){
-            // ❗ your code here
+            fetch(`${BASE_URL}?by_city=${city}`)
+                .then(response => response.json())
+                .then(results => {
+                    if (results.length === 0) {
+                        returnNone();
+                    } else {
+                        results.forEach(renderBrew);
+                    }
+                })
+                .catch(error => {
+                    console.log(error);
+                });
         }
 
         // ✅ Check Answer: 
@@ -165,7 +187,18 @@ console.log("------------------------");
         // 	✨ BONUS: Include error handling using .catch()
 
         function getBreweriesByState(state){
-            // ❗ your code here
+            fetch(`${BASE_URL}?by_state=${state}`)
+                .then(response => response.json())
+                .then(results => {
+                    if (results.length === 0) {
+                        returnNone();
+                    } else {
+                        results.forEach(renderBrew);
+                    }
+                })
+                .catch(error => {
+                    console.log(error);
+                });
         }
     
         // ✅ Check Answer: 
@@ -192,8 +225,23 @@ console.log("------------------------");
         // 	✨ BONUS: Include error handling using .catch()
 
         function searchBreweries(e){
-            // ❗ your code here
+            e.preventDefault();
+            const criteria = e.target.querySelector('#brew-input').value;
+            fetch(`${BASE_URL}/search?query=${criteria}`)
+                .then(response => response.json())
+                .then(results => {
+                    if (results.length === 0) {
+                        returnNone();
+                    } else {
+                        results.forEach(renderBrew);
+                    }
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+            document.getElementById('brew-list').replaceChildren();
+            e.target.reset();
         }
 
         // ✅ Check Answer: 
-        // brewForm.addEventListener('submit', searchBreweries);
+        brewForm.addEventListener('submit', searchBreweries);

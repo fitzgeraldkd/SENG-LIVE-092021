@@ -24,7 +24,7 @@
 
 // ✅ .innerHTML vs. .innerText vs. .textContent
 
-  	// .innerHTML => if you want to insert HTML within a DOM element
+  	// .innerHTML => if you want to insert HTML within a DOM element, shows full HTML structure
 
 	// .innerText => if you only want to insert text, shows only human-readable elements
 
@@ -103,16 +103,16 @@ console.log("------------------------");
 
 	// 	✨ BONUS: Try to reduce redudancy (DRY Principle) in your code through the use of JS functions and variables.
 
-
+		
 
 
 
 	// ✅ Check Answer: 
-	// function init() {
-	// 	pokemon.forEach(renderPokemon);
-	// }
+	function init() {
+		pokemon.forEach(renderPokemon);
+	}
 
-	// init();
+	init();
 
 // 🚧 Break Out Activity 2: Creating / Reading / Updating Elements
 
@@ -144,7 +144,36 @@ console.log("------------------------");
 
 	// 	✨ BONUS: Try to reduce redudancy (DRY Principle) in your code through the use of JS functions and variables.
 
+	function renderPokemon(pokemon) {
+		let pokeCard = document.createElement("div");
+		pokeCard.id = `poke-${pokemon.id}`;
+		pokeCard.className = "poke-card";
 
+		let pokeImg = document.createElement("img");
+		pokeImg.src = pokemon.img;
+		pokeImg.alt = `${pokemon.name} image`
+
+		let pokeName = document.createElement("h3");
+		pokeName.textContent = pokemon.name;
+
+		let pokeLikes = document.createElement("h3");
+		pokeLikes.textContent = "Likes: ";
+
+		let likesNum = document.createElement("h5");
+		likesNum.className = "likes-num";
+		likesNum.textContent = pokemon.likes;
+
+		let likesBttn = document.createElement("button");
+		likesBttn.className = "likes-bttn";
+		likesBttn.textContent = "♥";
+
+		let deleteBttn = document.createElement("button");
+		deleteBttn.className = "delete-bttn";
+		deleteBttn.textContent = "Delete";
+
+		pokeCard.append(pokeImg, pokeName, pokeLikes, likesNum, likesBttn, deleteBttn);
+		pokeContainer.append(pokeCard);
+	}
 
 
 

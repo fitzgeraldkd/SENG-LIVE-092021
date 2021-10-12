@@ -118,7 +118,12 @@ console.log("------------------------");
 		//  ✔️ Logs the returned "comments" to the Browser console 
 
 		function loadComments() {
-			// ❗ your code here
+			fetch(BASE_URL + '/comments')
+				.then(resp => resp.json())
+				.then(comments => {
+					console.log(comments);
+					comments.forEach(renderComment);
+				})
 		}
 
 		// ✅ Check Answer: 
@@ -139,7 +144,16 @@ console.log("------------------------");
 		//  ✔️ Appends commentCard to commentsContainer
 
 		function renderComment(comment) {
-			// ❗ your code here
+			const commentCard = document.createElement('div');
+			const userName = document.createElement('p');
+			const userContent = document.createElement('h3');
+
+			commentCard.className = 'comment-card';
+			userName.textContent = comment.user;
+			userContent.textContent = comment.content;
+
+			commentCard.append(userContent, userName);
+			commentsContainer.append(commentCard);
 		}
 
 		// ✅ Check Answer: 
@@ -172,8 +186,31 @@ console.log("------------------------");
 
 		//  ✔️ Resets the input values of commentsForm
 
-	function createComment() {
+	function createComment(e) {
 		// ❗ your code here
+		e.preventDefault();
+
+		const body = {
+			user: document.getElementById('user').value,
+			content: document.getElementById('content').value
+		};
+
+		const options = {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(body)
+		};
+
+		fetch(BASE_URL + '/comments', options)
+			.then(resp => resp.json())
+			.then(newComment => {
+				console.log('Success!');
+				renderComment(newComment);
+			});
+		
+		e.target.reset();
 	}
 
 	// ✅ Check Answer: 

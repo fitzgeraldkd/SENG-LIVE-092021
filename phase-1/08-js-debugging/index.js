@@ -202,6 +202,9 @@ console.log("------------------------");
 
         function renderAutoItem(brewery) {
             // ❗ your code here
+            const newOption = document.createElement('option');
+            newOption.value = brewery.name;
+            autoCompleteBox.append(newOption);
         }
 
         // ✅ Check Answer: 
@@ -237,10 +240,23 @@ console.log("------------------------");
 
         function returnAutoComplete(e) {
             // ❗ your code here
+            let query;
+            if (e === undefined) {
+                query = '*';
+            } else {
+                query = e.target.value;
+            }
+            const url = `${BASE_URL}/autocomplete?query=${query}`;
+            fetch(url).then(resp => resp.json()).then(breweries => {
+                console.table(breweries);
+                autoCompleteBox.replaceChildren();
+                breweries.forEach(renderAutoItem);
+            }).catch(error => console.error(`Invalid query: ${query}`));
         }
-
+        // returnAutoComplete({target: {value: '*'}});
+        returnAutoComplete();
         // ✅ Check Answer: 
-        // searchBox.addEventListener('input', returnAutoComplete);
+        searchBox.addEventListener('input', returnAutoComplete);
 
         // ❗ Check Assertion
-        // console.assert(autoCompleteBox.children.length > 0, { errorMsg: "autoCompleteBox is empty" });
+        console.assert(autoCompleteBox.children.length > 0, { errorMsg: "autoCompleteBox is empty" });

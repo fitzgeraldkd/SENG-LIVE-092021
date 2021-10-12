@@ -29,6 +29,26 @@
       "id": 2,
       "user": "Alice",
       "content": "I love Ivysaur more!"
+    },
+    {
+      "user": "Kenny",
+      "content": "New Comment",
+      "id": 3
+    },
+    {
+      "user": "Kenny",
+      "content": "Another Comment",
+      "id": 4
+    },
+    {
+      "user": "Kenny",
+      "content": "A third comment",
+      "id": 5
+    },
+    {
+      "user": "Kenny",
+      "content": "Growlithe is the best",
+      "id": 6
     }
   ]
 }
