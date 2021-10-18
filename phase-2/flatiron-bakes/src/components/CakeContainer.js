@@ -1,9 +1,15 @@
 import CakeCard from "./CakeCard";
 
-function CakeContainer({cakeList}) {
+function CakeContainer({cakeList, handleCakeClick }) {
     return (
         <>
-            {cakeList.map(cake => <CakeCard key={cake.flavor} cakeObj={cake} />)}
+            {cakeList.map(cake => 
+                <CakeCard
+                    key={cake.flavor}
+                    cakeObj={cake}
+                    handleCakeClick={handleCakeClick}
+                />
+            )}
         </>
     );
 }
