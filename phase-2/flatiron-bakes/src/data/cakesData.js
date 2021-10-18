@@ -37,4 +37,4 @@ export const cakes = [
 ]
 
 
-export const flavors = ['Black Forest', 'Earl Grey', 'Pink Champagne', 'Raspberry Cardamon Rose', 'Vanilla' ]
+export const flavorsData = ['Black Forest', 'Earl Grey', 'Pink Champagne', 'Raspberry Cardamon Rose', 'Vanilla' ]

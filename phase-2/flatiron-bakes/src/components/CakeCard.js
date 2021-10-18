@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-function CakeCard({handleCakeClick, cakeObj, cakeObj: {flavor, size='6" cake', price}}) {
+function CakeCard({handleCakeClick, handleEdit, cakeObj, cakeObj: {flavor, size='6" cake', price}}) {
     const [liked, setLiked] = useState(false);
 
     const handleLike = () => setLiked(curLiked => !curLiked);
@@ -11,6 +11,7 @@ function CakeCard({handleCakeClick, cakeObj, cakeObj: {flavor, size='6" cake', p
             <p>Size: {size}</p>
             <p>Price: ${price}</p>
             <p onClick={handleLike}>{liked?'💖':'🖤'}</p>
+            <button onClick={() => handleEdit(cakeObj)}>Edit</button>
         </div>
     );
 }
