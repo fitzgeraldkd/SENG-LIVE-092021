@@ -1,7 +1,9 @@
-import React, { useState } from 'react'
+import React, { useEffect } from 'react'
 
 function Form({ formData, handleAddCake, handleChange }) {
-
+    useEffect(() => {
+        return () => console.log('form removed');
+    }, [])
 
     const handleSubmit = (e) => {
         e.preventDefault();
