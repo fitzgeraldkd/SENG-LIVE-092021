@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Route, Switch } from 'react-router-dom';
 
 import CakeContainer from "./CakeContainer";
 import Header from "./Header";
@@ -13,7 +14,7 @@ function App() {
   const [search, setSearch] = useState('');
   const [cakeList, setCakeList] = useState(cakes);
   const [selectedCake, setSelectedCake] = useState(null);
-  const [visible, setVisible] = useState(true);
+  // const [visible, setVisible] = useState(true);
   const [formData, setFormData] = useState({
     flavor: '',
     size: '',
@@ -82,10 +83,6 @@ function App() {
     setCakeList(cakes.filter(cake => cake.flavor.toLowerCase().includes(e.target.value.toLowerCase())));
   };
 
-  const handleCakeClick = (cakeObj) => {
-    setSelectedCake(cakeObj);
-  };
-
   const handleEdit = (cakeObj) => {
     setFormData({...cakeObj});
   }
@@ -97,12 +94,23 @@ function App() {
   return (
     <div className="App">
       <Header bakery="Flatiron Bakes" slogan="live love code bake repeat" />
-      { selectedCake ? <CakeDetail selectedCake={selectedCake} handleDelete={handleDelete} /> : null }
-      <button onClick={() => setVisible(!visible)}>{visible ? 'Hide Form' : 'Show Form'}</button>
-      {visible ? <Form formData={formData} handleAddCake={handleAddCake} handleChange={handleChange} /> : null}
-      <Search search={search} handleSearch={handleSearch} />
-      <Flavors handleFilter={handleFilter} flavorsData={flavorsData} />
-      <CakeContainer cakeList={cakeList} handleCakeClick={handleCakeClick} handleEdit={handleEdit} />
+      {/* { selectedCake ? <CakeDetail selectedCake={selectedCake} handleDelete={handleDelete} /> : null } */}
+      {/* <button onClick={() => setVisible(!visible)}>{visible ? 'Hide Form' : 'Show Form'}</button> */}
+      <Switch>
+        <Route path='/cakes/new'>
+          <Form formData={formData} handleAddCake={handleAddCake} handleChange={handleChange} />
+        </Route>
+
+        <Route path='/cakes/:id'>
+          <CakeDetail handleDelete={handleDelete} />
+        </Route>
+
+        <Route path='/cakes'>
+          <Search search={search} handleSearch={handleSearch} />
+          <Flavors handleFilter={handleFilter} flavorsData={flavorsData} />
+          <CakeContainer cakeList={cakeList} handleEdit={handleEdit} />
+        </Route>
+      </Switch>
     </div>
   );
 }
