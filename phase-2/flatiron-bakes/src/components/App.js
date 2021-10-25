@@ -45,8 +45,37 @@ function App() {
   };
 
   const handleAddCake = (cake) => {
-    setCakeList([cake, ...cakeList]);
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({...cake, liked: false})
+    };
+    fetch('http://localhost:4000/cakes', options)
+      .then(resp => resp.json())
+      .then(newCake => {
+        setCakeList([newCake, ...cakeList]);
+        setFormData({
+          flavor: '',
+          size: '',
+          image: '',
+          price: ''
+        });
+      });
+    // setCakeList([cake, ...cakeList]);
   };
+
+  const handleDelete = (deletedCake) => {
+    console.log(deletedCake);
+    fetch(`http://localhost:4000/cakes/${deletedCake.id}`, {method: 'DELETE'})
+      .then(() => {
+        const filteredCakes = cakes.filter(cake => cake.id !== deletedCake.id);
+        setCakes(filteredCakes);
+        setCakeList(filteredCakes);
+        setSelectedCake(null);
+      })
+  }
 
   const handleSearch = (e) => {
     setSearch(e.target.value);
@@ -68,7 +97,7 @@ function App() {
   return (
     <div className="App">
       <Header bakery="Flatiron Bakes" slogan="live love code bake repeat" />
-      { selectedCake ? <CakeDetail selectedCake={selectedCake} /> : null }
+      { selectedCake ? <CakeDetail selectedCake={selectedCake} handleDelete={handleDelete} /> : null }
       <button onClick={() => setVisible(!visible)}>{visible ? 'Hide Form' : 'Show Form'}</button>
       {visible ? <Form formData={formData} handleAddCake={handleAddCake} handleChange={handleChange} /> : null}
       <Search search={search} handleSearch={handleSearch} />

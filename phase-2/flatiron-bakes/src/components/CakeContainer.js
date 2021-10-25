@@ -5,7 +5,7 @@ function CakeContainer({cakeList, handleCakeClick, handleEdit }) {
         <>
             {cakeList.map(cake => 
                 <CakeCard
-                    key={cake.flavor}
+                    key={cake.id}
                     cakeObj={cake}
                     handleCakeClick={handleCakeClick}
                     handleEdit={handleEdit}
