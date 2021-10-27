@@ -7,10 +7,10 @@ import Search from "./Search";
 import CakeDetail from './CakeDetail';
 import Form from './Form';
 import Flavors from './Flavors';
+import useQuery from '../hooks/useQuery';
 
 function App() {
   const [cakes, setCakes] = useState([]);
-  const [flavorsData, setFlavorsData] = useState([]);
   const [search, setSearch] = useState('');
   const [cakeList, setCakeList] = useState(cakes);
   const [selectedCake, setSelectedCake] = useState(null);
@@ -22,6 +22,8 @@ function App() {
     price: ''
   });
 
+  const [flavorsData] = useQuery('http://localhost:4000/flavorsData');
+
   useEffect(() => {
     fetch('http://localhost:4000/cakes')
       .then(resp => resp.json())
@@ -29,13 +31,11 @@ function App() {
         setCakes(data);
         setCakeList(data);
       });
-
-    fetch('http://localhost:4000/flavorsData')
-      .then(resp => resp.json())
-      .then(data => {
-        setFlavorsData(data);
-      });
   }, []);
+
+  useEffect(() => {
+
+  }, [cakes]);
 
   useEffect(() => {
     console.log(formData);

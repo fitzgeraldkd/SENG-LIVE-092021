@@ -1,20 +1,22 @@
-import React, { useState, useEffect } from 'react';
+// import React, { useState, useEffect } from 'react';
+import useQuery from '../hooks/useQuery';
 import { useParams } from 'react-router-dom';
 
 function CakeDetail({ handleDelete }) {
-    const [cake, setCake] = useState(null);
-    const [isLoaded, setIsLoaded] = useState(false);
+    // const [cake, setCake] = useState(null);
+    // const [isLoaded, setIsLoaded] = useState(false);
 
     const id = useParams().id;
+    const [cake, isLoaded] = useQuery(`http://localhost:4000/cakes/${id}`);
 
-    useEffect(() => {
-        fetch(`http://localhost:4000/cakes/${id}`)
-            .then(resp => resp.json())
-            .then(data => {
-                setCake(data);
-                setIsLoaded(true);
-            })
-    }, [id]);
+    // useEffect(() => {
+    //     fetch(`http://localhost:4000/cakes/${id}`)
+    //         .then(resp => resp.json())
+    //         .then(data => {
+    //             setCake(data);
+    //             setIsLoaded(true);
+    //         })
+    // }, [id]);
 
     if (!isLoaded) return <h1>Loading</h1>;
 
