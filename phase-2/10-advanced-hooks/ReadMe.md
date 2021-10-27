@@ -18,3 +18,5 @@
 
 ## useContext
 useContext is an alterative way to manage state. Instead of passing state through props to components, context stores state in its own file and gives every component access to it.  
+
+![context](./assets/context.png)
