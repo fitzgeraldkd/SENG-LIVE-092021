@@ -16,6 +16,12 @@ end
 # Store this value in a local variable 'name'
 # Print out a statement that will read: "Awesome Joe, what would you like to do?" 
 # `Joe` should be dynamic and return the value of the name variable so that the string prints the name a user inputs upon welcome.  
+def greeting
+  puts "Welcome to the Donation Tracker app! Tell us your name:"
+  name = gets.strip
+  puts "Awesome #{name}, what would you like to do?"
+end
+
 
 def menu_list 
   puts "Please select from the following options: "
@@ -29,6 +35,21 @@ end
 # For a behavior like this control flow can be used to execute certain behaviors based on the selection that was made. Thinking about what we have learned in Ruby so far, how can this be written? What type of statements can be used?
 # Another problem that needs to be solved is maintaining a loop in the program that will allow a user to make multiple selections without getting kicked out of the app. 
 def menu_selection 
+  input = nil
+  until input == 'exit'
+    input = gets.strip
+    if input == '1'
+      donation = create_donation
+      DONATIONS << donation
+      read_donation(donation)
+    elsif input == '2'
+      organizations
+    elsif input == 'menu'
+      menu_list
+    else
+      puts "Oops... looks like something went wrong. Try again!"
+    end
+  end
 end 
 
 # org_list will print out a list of the available organizations a user can donate to
@@ -36,6 +57,7 @@ end
 # Iterate over the array and print each individual organization
 def organizations 
   puts "List of organizations:"
+  ORGANIZATIONS.each {|organization| puts organization}
 end 
 
 def create_donation 
@@ -51,20 +73,20 @@ def create_donation
   # Need to create a hash with the provided values user has entered
   # Store and save the new donation to the collection of donations
   # Print a confirmation message that reads the new values 
+  new_donation = {organization: organization, amount: amount, date: date, completed: false}
 end 
 
-  # Confirmation will be a method that is invoked after a user submits a new donation. It will read and print the values that were entered by user. 
-  # This method will accept an argument of the donation and read the values
-  def read_donation donation
-    puts "Organization:"
-    puts "Amount:"
-    puts "Date:"
-    puts "Completed?"
-  end
+# Confirmation will be a method that is invoked after a user submits a new donation. It will read and print the values that were entered by user. 
+# This method will accept an argument of the donation and read the values
+def read_donation donation
+  puts "Organization: #{donation[:organization]}"
+  puts "Amount: #{donation[:amount]}"
+  puts "Date: #{donation[:date]}"
+  puts "Completed? #{donation[:completed]}"
+end
 
-  def goodbye
-    puts "Thank you for your contributions! We hope to see you back soon"
-  end
+def goodbye
+  puts "Thank you for your contributions! We hope to see you back soon"
+end
 
 
-end  

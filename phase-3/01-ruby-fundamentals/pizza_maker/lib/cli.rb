@@ -19,6 +19,18 @@ def menu_options
 end 
 
 def menu_selection
+  input = gets.strip
+  until input == 'exit'
+    if input == '1'
+      pizza = create_pizza
+      PIZZAS << pizza
+    elsif input == '2'
+      pizzas
+    else
+      puts 'Unknown command'
+    end
+    input = gets.strip
+  end
 end 
 
 def create_pizza
@@ -30,10 +42,15 @@ def create_pizza
   desc = gets.strip 
 
   # need to return a pizza hash
+  {name: name, toppings: toppings, desc: desc}
 end 
 
 def pizzas 
-
+  PIZZAS.each do |pizza|
+    puts pizza[:name]
+    puts "  Toppings: #{pizza[:toppings]}"
+    puts "  #{pizza[:desc]}"
+  end
 end
 
 def goodbye
