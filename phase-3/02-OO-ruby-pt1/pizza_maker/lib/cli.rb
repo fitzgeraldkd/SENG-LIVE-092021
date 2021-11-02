@@ -1,4 +1,4 @@
-PIZZAS = [{name: "Pepp in my step", toppings: "pepperoni, jalapeno, black olives", desc: "Get a kick out of this pizza"}, {name: "Jalapen-Pineapples", toppings: "pepperoni, jalapeno, pineapple", desc: "So delicously sweet!"}]
+PIZZAS = []
 
 def init
   puts "Welcome to the lean, mean Pizza Machine App!"
@@ -40,24 +40,17 @@ def create_pizza
   puts "Describe this pizza: "
   desc = gets.strip 
 
-  pizza = {
-    name: name,
-    toppings: toppings,
-    desc: desc
-  }
-
+  pizza = Pizza.new(name, toppings, desc)
   PIZZAS << pizza 
-
+  
+  binding.pry
   pizza
 end 
 
 def pizzas 
   PIZZAS.each do |pizza|
-    puts ""
-    puts "name: #{pizza[:name]}"
-    puts "#{pizza[:toppings]}"
-    puts "#{pizza[:desc]}"
-    puts ""
+    puts pizza
+    pizza.details
   end
 end
 

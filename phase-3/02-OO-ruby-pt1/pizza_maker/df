@@ -1,0 +1,18 @@
+
+[1mFrom:[0m /home/kenny/Development/code/SENG-LIVE-092021/phase-3/02-OO-ruby-pt1/pizza_maker/lib/cli.rb:46 Object#create_pizza:
+
+    [1;34m35[0m: [32mdef[0m [1;34mcreate_pizza[0m
+    [1;34m36[0m:   puts [31m[1;31m"[0m[31mName of pizza, get creative!:[1;31m"[0m[31m[0m
+    [1;34m37[0m:   name = gets.strip
+    [1;34m38[0m:   puts [31m[1;31m"[0m[31mList your toppings: [1;31m"[0m[31m[0m
+    [1;34m39[0m:   toppings = gets.strip
+    [1;34m40[0m:   puts [31m[1;31m"[0m[31mDescribe this pizza: [1;31m"[0m[31m[0m
+    [1;34m41[0m:   desc = gets.strip 
+    [1;34m42[0m: 
+    [1;34m43[0m:   pizza = [1;34;4mPizza[0m.new(name, toppings, desc)
+    [1;34m44[0m:   [1;34;4mPIZZAS[0m << pizza 
+    [1;34m45[0m:   
+ => [1;34m46[0m:   binding.pry
+    [1;34m47[0m:   pizza
+    [1;34m48[0m: [32mend[0m 
+
