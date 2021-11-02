@@ -42,8 +42,6 @@ def create_pizza
 
   pizza = Pizza.new(name, toppings, desc)
   PIZZAS << pizza 
-  
-  binding.pry
   pizza
 end 
 
