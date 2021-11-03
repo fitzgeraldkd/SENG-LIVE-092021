@@ -38,6 +38,7 @@ GEM
 
 PLATFORMS
   x86_64-darwin-20
+  x86_64-linux
 
 DEPENDENCIES
   activesupport (~> 6.1)
@@ -47,4 +48,4 @@ DEPENDENCIES
   rspec (~> 3.0)
 
 BUNDLED WITH
-   2.2.27
+   2.2.30
