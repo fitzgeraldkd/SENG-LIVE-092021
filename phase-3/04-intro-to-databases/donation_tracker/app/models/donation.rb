@@ -1,12 +1,12 @@
-class Donation 
+class Donation
 
-    @@all = []
+    @@all = [] 
 
     attr_accessor :amount, :organization, :date, :completed
     attr_reader :id
 
-    def self.all
-        @@all
+    def self.all 
+        @@all 
     end
 
     def self.create(attributes)
@@ -14,19 +14,23 @@ class Donation
     end
 
     def self.primary_key
-        if @@all.empty?
+        if @@all.empty? 
             1
-        else
+        else 
             @@all[-1].id + 1
         end
     end
 
     def self.find_by_id(id)
-        @@all.find {|donation| donation.id == id }
+        @@all.find do |donation|
+            donation.id == id
+        end
     end
 
     def self.pending
-        @@all.filter {|donation| donation.completed == false}
+        @@all.filter do |donation|
+            donation.completed == false
+        end
     end
 
     def initialize(organization:, amount:, date:, completed:)
@@ -44,13 +48,11 @@ class Donation
         puts "Completed? #{@completed}"
     end
 
-<<<<<<< HEAD
-    def save
+    def save 
         @@all << self
         self
     end
 
+
+
 end 
-=======
-end 
->>>>>>> 18bb83372d77ba235f2f78d09fc0dc16dd515da0
