@@ -31,9 +31,13 @@ class Pizza
         puts ""
     end
     
+<<<<<<< HEAD
     def save
         @@all << self
         self
     end
 
 end
+=======
+end
+>>>>>>> 18bb83372d77ba235f2f78d09fc0dc16dd515da0
