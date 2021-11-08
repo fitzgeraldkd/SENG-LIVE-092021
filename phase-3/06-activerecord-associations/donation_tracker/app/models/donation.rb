@@ -4,9 +4,10 @@ class Donation < ActiveRecord::Base
     belongs_to :organization 
 
     def self.pending
-        @@all.filter do |donation|
-            donation.completed == false
-        end
+        # @@all.filter do |donation|
+        #     donation.completed == false
+        # end
+        self.where(completed: false)
     end
 
    

@@ -12,3 +12,9 @@ Donation.create(amount: 1000.00, date: DateTime.new(2021, 11, 1), organization_i
 Donation.create(amount: 500.00, date: DateTime.new(2021, 9, 2), completed: true, organization_id: salvation_army.id, donor_id: grinch.id)
 Donation.create(amount: 750.00, date: DateTime.new(2021, 6, 6), completed: false, organization_id: red_cross.id, donor_id: grinch.id)
 Donation.create(amount: 20.00, date: DateTime.new(2021, 11, 02), organization_id: red_cross.id, donor_id: charlie.id)
+
+zachary = Donor.create(name: "Zachary", email: "zachary@flatironschool.com")
+toys_for_tots = Organization.create(name: 'Toys For Tots')
+Donation.create(amount: 350.00, date: DateTime.new(2021, 11, 8), organization_id: toys_for_tots.id, donor_id: zachary.id)
+team_seas = Organization.create(name: 'Team Seas')
+Donation.create(amount: 450.00, date: DateTime.new(2021, 11, 8), organization_id: team_seas.id, donor_id: zachary.id)
