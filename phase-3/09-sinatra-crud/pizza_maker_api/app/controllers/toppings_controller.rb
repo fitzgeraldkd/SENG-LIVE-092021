@@ -10,5 +10,19 @@ class ToppingsController < ApplicationController
         topping.to_json
     end
 
+    post '/toppings' do
+        topping = Topping.create(name: params[:name])
+        topping.to_json
+    end
 
+    patch '/toppings/:id' do
+        topping = Topping.find(params[:id])
+        topping.update(name: params[:name])
+        topping.to_json
+    end
+
+    delete '/toppings/:id' do
+        topping = Topping.find(params[:id])
+        topping.destroy
+    end
 end

@@ -1,4 +1,4 @@
-import IngredientInterface from "./ingredient/IngredientInterface";
+import IngredientInterface from "./topping/ToppingInterface";
 
 function App() {
   return (
