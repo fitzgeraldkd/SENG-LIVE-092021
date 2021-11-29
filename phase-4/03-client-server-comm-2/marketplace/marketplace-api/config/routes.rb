@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
   # resources :category_items
   # resources :categories
-  resources :items, only: [:index, :show, :create]
+  resources :items, only: [:index, :show, :create, :update]
+  resources :users, only: [:create, :destroy]
 
   # get '/items', to: 'items#index'
   # resources :users
