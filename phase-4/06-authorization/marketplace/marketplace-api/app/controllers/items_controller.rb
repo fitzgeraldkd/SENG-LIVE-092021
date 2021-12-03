@@ -1,4 +1,6 @@
 class ItemsController < ApplicationController
+    before_action :set_items, only[:show, :update, :destroy]
+    before_action :is_authorized, only[:update, :destroy]
 
     def index
         byebug
@@ -7,40 +9,47 @@ class ItemsController < ApplicationController
     end
 
     def show 
-        item = Item.find_by(id: params[:id])
-        if item 
-            render json: item 
+        if @item 
+            render json: @item 
         else 
             render json: { error: "Item does not exist" }, status: :not_found
         end
     end
 
     def create 
-        item = current_user.sold_items.create(item_params)
+        @item = current_user.sold_items.create(item_params)
         if item.valid? 
-            render json: item, status: :created 
+            render json: @item, status: :created 
         else 
-            render json: { error: item.errors.full_messages}, status: :unprocessable_entity
+            render json: { error: @item.errors.full_messages}, status: :unprocessable_entity
         end
     end
 
     def update 
-        item = Item.find_by(id: params[:id])
-        item.update!(item_params)
-        render json: item, status: :ok
+        @item.update!(item_params)
+        render json: @item, status: :ok
     end
 
     def destroy 
-        item = Item.find_by(id: params[:id])
-        item.destroy 
+        @item.destroy 
         head :no_content 
     end
 
 
-private 
+    private 
 
-def item_params
-    params.permit(:name, :desc, :price)
-end 
+    def item_params
+        params.permit(:name, :desc, :price)
+    end 
+
+    def set_items
+        @item = Item.find_by(id: params[:id])
+    end
+
+    def is_authorized
+        # question mark after admin not required, but indicates that the value is boolean
+        permitted = current_user.admin? || @item.seller == current_user
+        render json: "Accessibility is not permitted", status: :forbidden unless permitted
+    end
 
 end
